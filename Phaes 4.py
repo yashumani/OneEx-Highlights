@@ -9,11 +9,14 @@ def set_custom_pythonpath(custom_path):
     Args:
     custom_path (str): The path to add to PYTHONPATH.
     """
+    if not os.path.exists(custom_path):
+        raise FileNotFoundError(f"Custom PYTHONPATH does not exist: {custom_path}")
     if custom_path not in sys.path:
         sys.path.insert(0, custom_path)
+        print(f"Custom PYTHONPATH set: {custom_path}")
 
-# Set your desired PYTHONPATH
-custom_pythonpath = "/path/to/your/pythonpath"
+# Set your desired PYTHONPATH dynamically
+custom_pythonpath = "C:/Users/Sharya3/AppData/Local/Programs/Python/Python312"
 set_custom_pythonpath(custom_pythonpath)
 
 # Import required libraries (ensure they are available in the custom PYTHONPATH)
@@ -89,12 +92,20 @@ def phase4(df):
 
 # Example of how to set custom PYTHONPATH and use the function
 if __name__ == "__main__":
-    # Set your desired PYTHONPATH dynamically if needed
-    custom_pythonpath = "C:/Users/Sharya3/AppData/Local/Programs/Python/Python312"
-    set_custom_pythonpath(custom_pythonpath)
-    
-    df = input_table_1.copy()
-	# Run Phase 4 processing
+    # Ensure the input DataFrame (replace with actual KNIME input)
+    example_data = {
+        "Metric": ["GROSS_ADDS_TOTAL", "NET_ADDS_TOTAL"],
+        "Period": ["Yesterday", "WTD"],
+        "Narrative": [
+            "Gross adds have shown a steady increase over the period.",
+            "Net adds declined slightly compared to last week."
+        ]
+    }
+    df = pd.DataFrame(example_data)
+
+    # Run Phase 4 processing
     result = phase4(df)
     print(result)
-    output_table_1 = summarized_table
+
+    # Output the final table
+    output_table_1 = result
