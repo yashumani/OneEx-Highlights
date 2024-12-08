@@ -1,3 +1,22 @@
+import sys
+import os
+
+# Set an alternative PYTHONPATH
+def set_custom_pythonpath(custom_path):
+    """
+    Add a custom PYTHONPATH to sys.path for module imports.
+    
+    Args:
+    custom_path (str): The path to add to PYTHONPATH.
+    """
+    if custom_path not in sys.path:
+        sys.path.insert(0, custom_path)
+
+# Set your desired PYTHONPATH
+custom_pythonpath = "/path/to/your/pythonpath"
+set_custom_pythonpath(custom_pythonpath)
+
+# Import required libraries (ensure they are available in the custom PYTHONPATH)
 import pandas as pd
 from transformers import pipeline
 
@@ -67,3 +86,24 @@ def phase4(df):
         return summarized_table
     else:
         raise ValueError(f"Column '{narrative_column}' not found in the input data.")
+
+# Example of how to set custom PYTHONPATH and use the function
+if __name__ == "__main__":
+    # Set your desired PYTHONPATH dynamically if needed
+    custom_pythonpath = "/path/to/your/pythonpath"
+    set_custom_pythonpath(custom_pythonpath)
+
+    # Example DataFrame
+    example_data = {
+        "Metric": ["GROSS_ADDS_TOTAL", "NET_ADDS_TOTAL"],
+        "Period": ["Yesterday", "WTD"],
+        "Narrative": [
+            "Gross adds have shown a steady increase over the period.",
+            "Net adds declined slightly compared to last week."
+        ]
+    }
+    df = pd.DataFrame(example_data)
+
+    # Run Phase 4 processing
+    result = phase4(df)
+    print(result)
