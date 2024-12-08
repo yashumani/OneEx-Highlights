@@ -90,20 +90,11 @@ def phase4(df):
 # Example of how to set custom PYTHONPATH and use the function
 if __name__ == "__main__":
     # Set your desired PYTHONPATH dynamically if needed
-    custom_pythonpath = "/path/to/your/pythonpath"
+    custom_pythonpath = "C:/Users/Sharya3/AppData/Local/Programs/Python/Python312"
     set_custom_pythonpath(custom_pythonpath)
-
-    # Example DataFrame
-    example_data = {
-        "Metric": ["GROSS_ADDS_TOTAL", "NET_ADDS_TOTAL"],
-        "Period": ["Yesterday", "WTD"],
-        "Narrative": [
-            "Gross adds have shown a steady increase over the period.",
-            "Net adds declined slightly compared to last week."
-        ]
-    }
-    df = pd.DataFrame(example_data)
-
-    # Run Phase 4 processing
+    
+    df = input_table_1.copy()
+	# Run Phase 4 processing
     result = phase4(df)
     print(result)
+    output_table_1 = summarized_table
