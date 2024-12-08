@@ -34,40 +34,36 @@ def process_summarization(input_table, summarizer, narrative_column="Narrative",
     return input_table
 
 # Main function
-def main():
+def phase4(df):
+    """
+    Phase 4 function to summarize narratives in the input dataframe.
+    
+    Args:
+    df (pd.DataFrame): Input data frame, expected to have a "Narrative" column.
+    
+    Returns:
+    pd.DataFrame: Dataframe with added 'Summary' column.
+    """
     # Model configuration
     model_name = "facebook/bart-large-cnn"  # You can switch to "t5-small" or "t5-large" if needed
     summarizer = load_summarization_model(model_name)
     
-    # Load input_table_1 (output_table_1 from Phase 3)
-    input_file = "output_table_1.csv"  # Replace with the correct path to your Phase 3 output
-    input_table_1 = pd.read_csv(input_file)
-
     # Narrative column configuration
     narrative_column = "Narrative"
-    if narrative_column in input_table_1.columns:
+    if narrative_column in df.columns:
         # Summarization parameters
         max_length = 130
         min_length = 30
 
         # Summarize narratives
         summarized_table = process_summarization(
-            input_table=input_table_1,
+            input_table=df,
             summarizer=summarizer,
             narrative_column=narrative_column,
             max_length=max_length,
             min_length=min_length
         )
 
-        # Assign summarized table to output_table_1
-        global output_table_1
-        output_table_1 = summarized_table
-
-        # Print the summarized table for verification
-        print("Summarized Data:")
-        print(output_table_1.head())
+        return summarized_table
     else:
         raise ValueError(f"Column '{narrative_column}' not found in the input data.")
-
-if __name__ == "__main__":
-    main()
